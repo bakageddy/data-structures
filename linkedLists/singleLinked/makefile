@@ -11,4 +11,7 @@ $(BIN): $(OBJ)
 	$(CC) -o $(BIN) $(OBJ)
 
 %.o: %.c
-	$(CC) %.c -c $(CFLAGS) $(OPT)
+	$(CC) $^ -c $(CFLAGS) $(OPT)
+
+clean:
+	@rm -rf $(OBJ) $(BIN)
