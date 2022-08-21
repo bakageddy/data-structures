@@ -4,13 +4,21 @@
 
 #include "link.h"
 
-static linked_list* list;
+void getPoly(linked_list *list, int terms);
 int main(void) {
-    node_t* head = (node_t*) malloc(sizeof(node_t));
-    head -> data = 1;
-    head -> next = NULL;
-    initList(list, head);
-    traverse(list);
-    freeList(list);
+    linked_list *p = NULL;
+    insertAtEnd(p, 10);
+    // getPoly(p, 4);
+    traverse(p);
+    freeList(p);
     return 0;
+}
+
+void getPoly(linked_list *list, int terms) {
+    int temp = 0;
+    for (int i = 0; i < terms; i++) {
+        printf("Enter the coefficient of ith term: ");
+        scanf("%d", &temp);
+        insertAtEnd(list, temp);
+    }
 }

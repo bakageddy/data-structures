@@ -6,6 +6,7 @@ BIN=run
 CFILES=main.c link.c
 
 all: $(BIN)
+	./$(BIN)
 
 $(BIN): $(OBJ)
 	$(CC) -o $(BIN) $(OBJ)

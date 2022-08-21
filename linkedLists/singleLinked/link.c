@@ -3,12 +3,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void checkList(linked_list *list) {
+    if (list == NULL) {
+        printf("INVALID LIST!\n");
+        exit(1);
+    }
+}
+
 void initList(linked_list *list, node_t *head) {
     list -> head = head;
     list -> length = 1;
 }
 
 void traverse(linked_list* list) {
+    checkList(list);
     for (node_t* head = list -> head; head != NULL; head = head -> next) {
         printf("%d ", head -> data);
     }
@@ -16,10 +24,10 @@ void traverse(linked_list* list) {
 }
 
 
-size_t search(linked_list *list, node_t *elem) {
+size_t search(linked_list *list, int elem) {
     size_t index = 0;
     for (node_t *head = list -> head; head != NULL; head = head -> next) {
-        if (head -> data == elem -> data)
+        if (head -> data == elem)
             return index;
         else index += 1;
     }
@@ -47,7 +55,7 @@ void insert(linked_list *list, size_t index, node_t *elem) {
 }
 
 void insertAfter(linked_list *list, node_t *after, node_t *elem) {
-    size_t index = search(list, after);
+    size_t index = search(list, after -> data);
     if (index == -1)
         printf("Element not found!\n");
     else
@@ -55,7 +63,7 @@ void insertAfter(linked_list *list, node_t *after, node_t *elem) {
 }
 
 void insertBefore(linked_list *list, node_t* before, node_t* elem) {
-    size_t index = search(list, before);
+    size_t index = search(list, before -> data);
     if (index == -1)
         printf("Element not found!\n");
     else
@@ -77,9 +85,26 @@ void insertAtStart(linked_list *list, node_t *elem) {
     list -> length += 1;
 }
 
+void replace(linked_list *list, size_t index, int data) {
+    node_t *head = list -> head;
+    size_t count = 0;
+    if ((index > list -> length) || (index < 0)) {
+        printf("INVALID INDEX!\n");
+        exit(1);
+    }
+    while (count < index - 1) {
+        head = head -> next;
+        count += 1;
+    }
+}
+
 void deleteElem(linked_list *list, size_t index) {
     node_t *head = list -> head, *temp;
     size_t count = 0;
+    if ((index > list -> length) || (index < 0)) {
+        printf("INVALID INDEX!\n");
+        exit(1);
+    }
     while (count < index - 1) {
         head = head -> next;
         count += 1;
@@ -92,12 +117,12 @@ void deleteElem(linked_list *list, size_t index) {
 }
 
 void freeList(linked_list *list) {
+    checkList(list);
     node_t *head = list -> head, *temp;
-    while (list -> head != NULL) {
+    while (head != NULL) {
         temp = head;
         head = head -> next;
         free(temp);
+        list -> length--;
     }
-
-    list -> length = 0;
 }
