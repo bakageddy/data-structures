@@ -15,6 +15,7 @@ typedef struct {
     size_t length;
 } linked_list;
 
+void initList(linked_list *list, node_t *head);
 void traverse(linked_list *list);
 size_t search(linked_list *list, node_t* elem);
 void insert(linked_list *list, size_t index, node_t *elem);

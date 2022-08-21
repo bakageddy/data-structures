@@ -3,6 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void initList(linked_list *list, node_t *head) {
+    list -> head = head;
+    list -> length = 1;
+}
+
 void traverse(linked_list* list) {
     for (node_t* head = list -> head; head != NULL; head = head -> next) {
         printf("%d ", head -> data);
