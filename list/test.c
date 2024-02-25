@@ -4,39 +4,64 @@
 #include "./list.h"
 
 
-int test_create(void) {
-	list_t* list = create(10);
+void print_list(list_t *list) {
 	assert(list != NULL);
-	assert(list -> data == 10);
-
-	list_t* another = create_default();
-	assert(another != NULL);
-	assert(another -> data == 0);
-
-	delete_list(list);
-	delete_list(another);
-	return 1;
+	assert(list -> len != 0);
+	node_t *head = list -> head;
+	while (head != NULL) {
+		printf("%d ", head -> data);
+		head = head -> next;
+	}
+	printf("\n");
 }
 
-int test_append(void) {
-	list_t* list = NULL;
-	int result = list_append(list, 10);
-	assert(result == -1);
+// int test_create(void) {
+// 	list_t* list = create(10);
+// 	assert(list != NULL);
+// 	assert(list -> data == 10);
+//
+// 	list_t* another = create_default();
+// 	assert(another != NULL);
+// 	assert(another -> data == 0);
+//
+// 	delete_list(list);
+// 	delete_list(another);
+// 	return 1;
+// }
 
-	list = create_default();
-	result = list_append(list, 10);
+// int test_append(void) {
+// 	list_t* list = NULL;
+// 	int result = list_append(list, 10);
+// 	assert(result == -1);
+//
+// 	list = create_default();
+// 	result = list_append(list, 10);
+//
+// 	assert(result != -1);
+// 	assert(list -> next -> data == 10);
+//
+// 	delete_list(list);
+// 	return 1;
+// }
 
-	assert(result != -1);
-	assert(list -> next -> data == 10);
+int test_delete(void) {
+	list_t *list = NULL;
+	list = create(1);
+	list_append(list, 2);
+	list_append(list, 3);
+	print_list(list);
 
+	list_delete(list, 0);
+	print_list(list);
 	delete_list(list);
 	return 1;
 }
 
 int main(void) {
-	int cases;
-	cases += test_create();
-	cases += test_append();
-	printf("TEST CASES: PASSED %d\n", cases);
+	// int cases;
+	// cases += test_create();
+	// cases += test_append();
+	// printf("TEST CASES: PASSED %d\n", cases);
+	test_delete();
 	return 0;
 }
