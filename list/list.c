@@ -42,7 +42,35 @@ int list_append(list_t *list, LIST_TYPE elem) {
 	return 0;
 }
 
+int list_insert(list_t *list, LIST_TYPE elem, size_t idx) {
+	if (list == NULL) return -1;
+	if (idx > list -> len) return -1;
+
+	if (idx == 0) {
+		node_t *node = create_node(elem);
+		if (!node) return -1;
+		node -> next = list -> head;
+		list -> head = node;
+		list -> len += 1;
+		return 0;
+	}
+
+	node_t *ptr = list -> head;
+	size_t ctr = 0;
+	while (ctr + 1 != idx) {
+		ptr = ptr -> next;
+		ctr += 1;
+	}
+	node_t *to_insert = create_node(elem);
+	if (!to_insert) return -1;
+	to_insert -> next = ptr -> next;
+	ptr -> next = to_insert;
+	list -> len += 1;
+	return 0;
+}
+
 int list_delete(list_t *list, const size_t idx) {
+	if (list == NULL || list -> head == NULL) return -1;
 	if (idx >= list -> len) return -1;
 
 	if (idx == 0) {

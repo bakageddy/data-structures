@@ -73,11 +73,38 @@ int test_delete(void) {
 	return 1;
 }
 
+int test_insert(void) {
+	list_t *list = NULL;
+	list = create(1);
+	assert(list != NULL);
+
+	int result = list_insert(list, 2, list -> len);
+	assert(result != -1);
+	print_list(list);
+
+	result = list_insert(list, 3, list -> len);
+	assert(result != -1);
+	print_list(list);
+
+	result = list_insert(list, 0, 0);
+	assert(result != -1);
+	print_list(list);
+
+	result = list_insert(list, 69, 2);
+	assert(result != -1);
+	print_list(list);
+
+	print_list(list);
+	delete_list(list);
+	return 1;
+
+}
+
 int main(void) {
 	// int cases;
 	// cases += test_create();
 	// cases += test_append();
 	// printf("TEST CASES: PASSED %d\n", cases);
-	test_delete();
+	test_insert();
 	return 0;
 }
