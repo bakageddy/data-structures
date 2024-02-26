@@ -7,6 +7,8 @@
 void print_list(list_t *list) {
 	assert(list != NULL);
 	assert(list -> len != 0);
+	assert(list -> head != NULL);
+
 	node_t *head = list -> head;
 	while (head != NULL) {
 		printf("%d ", head -> data);
@@ -51,8 +53,22 @@ int test_delete(void) {
 	list_append(list, 3);
 	print_list(list);
 
-	list_delete(list, 0);
+	int result = list_delete(list, 0);
+	assert(result != -1);
 	print_list(list);
+
+	result = list_delete(list, 3);
+	assert(result == -1);
+	print_list(list);
+
+	list_append(list, 4);
+	list_append(list, 5);
+	print_list(list);
+
+	result = list_delete(list, 3);
+	assert(result != -1);
+	print_list(list);
+
 	delete_list(list);
 	return 1;
 }

@@ -43,24 +43,25 @@ int list_append(list_t *list, LIST_TYPE elem) {
 }
 
 int list_delete(list_t *list, const size_t idx) {
-	if (list -> len <= idx) return -1;
+	if (idx >= list -> len) return -1;
 
-	if (idx == 0 && list -> len == 1) {
-		free(list -> head);
+	if (idx == 0) {
+		node_t *head = list -> head;
+		list -> head = head -> next;
+		free(head);
 		list -> len -= 1;
 		return 0;
 	}
 
-	// TODO: fix this bug
-	node_t *head = list -> head;
-	size_t counter = idx;
-	while (counter >= 1) {
-		head = head -> next;
-		counter -= 1;
+	node_t *ptr = list -> head;
+	size_t ctr = 0;
+	while (ctr + 1 != idx) {
+		ptr = ptr -> next;
+		ctr += 1;
 	}
 
-	node_t *to_delete = head -> next;
-	head -> next = head -> next -> next;
+	node_t *to_delete = ptr -> next;
+	ptr -> next = ptr -> next -> next;
 	list -> len -= 1;
 	free(to_delete);
 
@@ -74,6 +75,7 @@ void __delete_nodes(node_t *head) {
 }
 
 void delete_list(list_t *list) {
+	if (!list) return;
 	__delete_nodes(list -> head);
 }
 
