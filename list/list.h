@@ -23,8 +23,12 @@ list_t *create_default(void);
 node_t *create_node(LIST_TYPE val);
 
 int list_append(list_t *list, LIST_TYPE elem);
+int list_extend(list_t *list, list_t *other);
 int list_insert(list_t *list, LIST_TYPE elem, size_t idx);
 int list_delete(list_t *list, size_t idx);
+int list_remove(list_t *list, LIST_TYPE elem);
+
+size_t list_find(list_t *list, LIST_TYPE elem);
 
 void delete_list(list_t *list);
 

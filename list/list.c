@@ -42,6 +42,16 @@ int list_append(list_t *list, LIST_TYPE elem) {
 	return 0;
 }
 
+int list_extend(list_t *list, list_t *other) {
+	if (!list || !other) return 1;
+	node_t *head = list -> head;
+	while (!head) head = head -> next; 
+
+	head -> next = other -> head;
+	list -> len += other -> len;
+	return 0;
+}
+
 int list_insert(list_t *list, LIST_TYPE elem, size_t idx) {
 	if (list == NULL) return -1;
 	if (idx > list -> len) return -1;
@@ -94,6 +104,41 @@ int list_delete(list_t *list, const size_t idx) {
 	free(to_delete);
 
 	return 0;
+}
+
+int list_remove(list_t *list, LIST_TYPE elem) {
+	if (!list) return 1;
+	node_t *head = list -> head;
+	if (head -> data == elem) {
+		list -> head = head -> next;
+		free(head);
+		return 0;
+	}
+
+	while (head -> next != NULL) {
+		if (head -> next -> data == elem) {
+			node_t *temp = head -> next;
+			head -> next = head -> next -> next;
+			free(temp);
+			return 0;
+		}
+		head = head -> next;
+	}
+	return 1;
+}
+
+size_t list_find(list_t *list, LIST_TYPE elem) {
+	if (!list) return -1;
+	size_t idx = 0;
+	node_t *head = list -> head;
+	while (!head) {
+		if (head -> data == elem) {
+			return idx;
+		}
+		idx += 1;
+		head = head -> next;
+	}
+	return -1;
 }
 
 void __delete_nodes(node_t *head) {

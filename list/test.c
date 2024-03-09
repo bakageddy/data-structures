@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "./list.h"
 
+// TODO: test list_remove, list_extend, list_find!
 
 void print_list(list_t *list) {
 	assert(list != NULL);
