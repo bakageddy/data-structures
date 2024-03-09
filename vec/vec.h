@@ -6,6 +6,9 @@
 #endif // !VEC_TYPE
 
 #include <stddef.h>
+#define OPTION_IMPL
+#include "option.h"
+
 typedef struct {
 	VEC_TYPE* elems;
 	size_t len;
