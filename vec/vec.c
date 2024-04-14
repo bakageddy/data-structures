@@ -6,7 +6,7 @@
 vec *vec_create(void) {
 	vec *tmp = malloc(sizeof(vec));
 	if (!tmp) return NULL;
-	tmp -> elems = malloc(sizeof(VEC_TYPE) * 10);
+	tmp -> elems = malloc(sizeof(VEC_TYPE) * VEC_DEFAULT_SIZE);
 	if (!tmp -> elems) return NULL;
 	tmp -> len = 0;
 	tmp -> cap = 10;
@@ -36,6 +36,12 @@ int vec_append(vec *vector, const VEC_TYPE elem) {
 	vector -> elems[vector -> len] = elem;
 	vector -> len += 1;
 	return 0;
+}
+
+option vec_pop(vec *vector) {
+	if (!vector) return none();
+	vector -> len -= 1;
+	return some(&vector -> elems[vector -> len]);
 }
 
 int vec_shrink(vec *vector) {

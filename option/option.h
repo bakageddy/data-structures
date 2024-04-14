@@ -17,6 +17,7 @@ option some(void *data);
 option none(void);
 bool is_some(option o);
 bool is_none(option o);
+void *get_some(option o);
 
 #ifdef OPTION_IMPL
 
@@ -40,6 +41,10 @@ bool is_some(option o) {
 
 bool is_none(option o) {
 	return o.t == NONE;
+}
+
+void *get_some(option o) {
+	return o.data;
 }
 
 #endif // OPTION_IMPL
